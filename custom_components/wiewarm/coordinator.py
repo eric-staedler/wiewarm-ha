@@ -6,13 +6,13 @@ import aiohttp
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import API_URL, DEFAULT_SCAN_INTERVAL, DOMAIN
+from .const import BAD_API_URL, DEFAULT_SCAN_INTERVAL, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
 
 class WieWarmCoordinator(DataUpdateCoordinator):
-    """Fetches temperature data for a single Badi from wiewarm.ch."""
+    """Fetches Badi data (names + temperatures) from wiewarm.ch."""
 
     def __init__(self, hass: HomeAssistant, badi_id: str) -> None:
         self.badi_id = badi_id
@@ -24,7 +24,7 @@ class WieWarmCoordinator(DataUpdateCoordinator):
         )
 
     async def _async_update_data(self) -> dict:
-        url = API_URL.format(self.badi_id)
+        url = BAD_API_URL.format(self.badi_id)
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
@@ -34,7 +34,7 @@ class WieWarmCoordinator(DataUpdateCoordinator):
         except aiohttp.ClientError as err:
             raise UpdateFailed(f"Error communicating with wiewarm.ch: {err}") from err
 
-        if not isinstance(data, dict) or not data:
+        if not isinstance(data, dict) or "becken" not in data:
             raise UpdateFailed("Unexpected API response format")
 
         return data

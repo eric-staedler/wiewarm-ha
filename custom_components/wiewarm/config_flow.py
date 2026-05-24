@@ -7,21 +7,21 @@ from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 
-from .const import API_URL, CONF_BADI_ID, DOMAIN
+from .const import BAD_API_URL, CONF_BADI_ID, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
 
-async def _validate_badi_id(hass: HomeAssistant, badi_id: str) -> dict:
-    """Return API data or raise ValueError on invalid ID / unreachable API."""
-    url = API_URL.format(badi_id)
+async def _fetch_badi(hass: HomeAssistant, badi_id: str) -> dict:
+    """Return bad.json data or raise ValueError on invalid ID / unreachable API."""
+    url = BAD_API_URL.format(badi_id)
     async with aiohttp.ClientSession() as session:
         async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
             if resp.status != 200:
                 raise ValueError("invalid_badi_id")
             data = await resp.json(content_type=None)
 
-    if not isinstance(data, dict) or not data:
+    if not isinstance(data, dict) or "becken" not in data:
         raise ValueError("invalid_badi_id")
 
     return data
@@ -42,7 +42,7 @@ class WieWarmConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             self._abort_if_unique_id_configured()
 
             try:
-                data = await _validate_badi_id(self.hass, badi_id)
+                data = await _fetch_badi(self.hass, badi_id)
             except ValueError:
                 errors[CONF_BADI_ID] = "invalid_badi_id"
             except aiohttp.ClientError:
@@ -51,8 +51,9 @@ class WieWarmConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 _LOGGER.exception("Unexpected error during WieWarm setup")
                 errors["base"] = "unknown"
             else:
-                # Use the first available pool name hint for the title if possible
-                title = f"WieWarm Badi {badi_id}"
+                badname = data.get("badname") or f"Badi {badi_id}"
+                ort = data.get("ort", "")
+                title = f"{badname} ({ort})" if ort else badname
                 return self.async_create_entry(title=title, data={CONF_BADI_ID: badi_id})
 
         return self.async_show_form(
