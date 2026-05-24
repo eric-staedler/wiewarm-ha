@@ -14,7 +14,7 @@ One temperature sensor is created per pool basin (Becken) for the configured Bad
 
 1. Open HACS in Home Assistant
 2. Go to **Integrations** → click the three-dot menu → **Custom repositories**
-3. Add `https://github.com/YOUR_GITHUB_USERNAME/wiewarm-ha` with category **Integration**
+3. Add `https://github.com/eric-staedler/wiewarm-ha` with category **Integration**
 4. Search for **WieWarm** and install it
 5. Restart Home Assistant
 
