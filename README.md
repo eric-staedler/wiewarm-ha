@@ -33,10 +33,29 @@ One temperature sensor is created per pool basin (Becken) for the configured Bad
 
 ### Finding the Badi ID
 
-Visit [wiewarm.ch](https://www.wiewarm.ch) and open the detail page of your Badi. The ID is the number at the end of the URL:
+Find your Badi in the following json file. 
 
 ```
-https://www.wiewarm.ch/badi/detail/1   →  Badi ID: 1
+https://www.wiewarm.ch/api/v1/temperature/all_current.json/0
+```
+
+```
+    {
+        "badid": "14", <-- The Badi ID
+        "badid_text": "Zürichsee_Zürich",
+        "bad": "Zürichsee",
+        "ort": "Zürich",
+        "plz": "",
+        "kanton": "ZH",
+        "beckenid": "43",
+        "becken": "Tiefenbrunnen",
+        "temp": "16.2",
+        "date": "2026-05-24 16:30:02",
+        "ortlat": "47.366211",
+        "ortlong": "8.543380",
+        "date_pretty": "heute, 16:30",
+        "images": []
+    },
 ```
 
 You can add multiple Badis by setting up the integration multiple times with different IDs.
