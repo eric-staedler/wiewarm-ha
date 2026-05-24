@@ -1,0 +1,21 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "WieWarm Setup",
+        "description": "Enter the Badi ID from wiewarm.ch (e.g. 1 for Freibad Allenmoos Zürich).",
+        "data": {
+          "badi_id": "Badi ID"
+        }
+      }
+    },
+    "error": {
+      "invalid_badi_id": "Invalid Badi ID — no data found for this ID.",
+      "cannot_connect": "Could not connect to wiewarm.ch. Check your internet connection.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This Badi ID is already configured."
+    }
+  }
+}

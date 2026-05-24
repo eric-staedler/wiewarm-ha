@@ -1,0 +1,11 @@
+{
+  "domain": "wiewarm",
+  "name": "WieWarm",
+  "version": "1.0.0",
+  "config_flow": true,
+  "documentation": "https://github.com/eric-staedler/wiewarm-ha",
+  "issue_tracker": "https://github.com/eric-staedler/wiewarm-ha/issues",
+  "requirements": [],
+  "codeowners": ["@eric-staedler"],
+  "iot_class": "cloud_polling"
+}
