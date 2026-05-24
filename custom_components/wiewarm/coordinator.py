@@ -27,7 +27,7 @@ class WieWarmCoordinator(DataUpdateCoordinator):
         url = BAD_API_URL.format(self.badi_id)
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+                async with session.get(url, timeout=aiohttp.ClientTimeout(total=10), allow_redirects=False) as resp:
                     if resp.status != 200:
                         raise UpdateFailed(f"API returned HTTP {resp.status}")
                     data = await resp.json(content_type=None)

@@ -16,7 +16,7 @@ async def _fetch_badi(hass: HomeAssistant, badi_id: str) -> dict:
     """Return bad.json data or raise ValueError on invalid ID / unreachable API."""
     url = BAD_API_URL.format(badi_id)
     async with aiohttp.ClientSession() as session:
-        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=10), allow_redirects=False) as resp:
             if resp.status != 200:
                 raise ValueError("invalid_badi_id")
             data = await resp.json(content_type=None)

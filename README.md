@@ -76,6 +76,19 @@ Sensors are updated every **30 minutes**.
 
 ---
 
+## Data Source & Attribution
+
+Water temperature data is provided by [wiewarm.ch](http://www.wiewarm.ch) and contributing baths and individuals.
+
+> **http://www.wiewarm.ch sowie teilnehmende Badeanstalten und Individuen**
+
+The dataset from wiewarm.ch is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](https://creativecommons.org/licenses/by-sa/3.0/).
+Based on a work at [http://www.wiewarm.ch](http://www.wiewarm.ch).
+Permissions beyond the scope of this license may be available at [info@wiewarm.ch](mailto:info@wiewarm.ch).
+
+---
+
 ## License
 
-[MIT](LICENSE)
+The integration code is licensed under [MIT](LICENSE).
+Data fetched at runtime originates from wiewarm.ch and remains subject to the [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license terms above.

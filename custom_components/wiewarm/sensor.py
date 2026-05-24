@@ -42,6 +42,7 @@ class WieWarmSensor(CoordinatorEntity[WieWarmCoordinator], SensorEntity):
     _attr_device_class = SensorDeviceClass.TEMPERATURE
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_native_unit_of_measurement = UnitOfTemperature.CELSIUS
+    _attr_attribution = "Data provided by http://www.wiewarm.ch sowie teilnehmende Badeanstalten und Individuen (CC BY-SA 3.0)"
 
     def __init__(
         self,
